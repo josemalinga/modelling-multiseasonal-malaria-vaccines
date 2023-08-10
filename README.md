@@ -6,7 +6,7 @@ _<sup>1</sup>Swiss Tropical and Public Health Institute, Allschwil, Switzerland;
 
 *Correspondence to: melissa.penny@unibas.ch
 
-Using an individual-based malaria transmission model (https://github.com/SwissTPH/openmalaria/wiki) we evaluate the population level impact of deploying a long duration pre_erythrocytic vaccine, linking vaccine performance properties, health system and programmatic factors and understanding their trad-offs and relationships.
+Using an individual-based malaria transmission model (https://github.com/SwissTPH/openmalaria/wiki) we evaluate the population level impact of deploying a long duration pre-erythrocytic vaccine, linking vaccine performance properties, health system and programmatic factors and understanding their trad-offs and relationships.
 
 # Workflow Steps/Folders
 ## analysisworkflow
