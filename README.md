@@ -1,8 +1,8 @@
 # Performance characteristics and potential public health impact of improved malaria vaccines targeting childhood burden
 
-**Josephine Malinga1,2, Lydia Braunack-Mayer1,2, Thiery Masserey1,2, Matthew Cairns3, Sherrie L Kelly1,2, Narimane Nekkab1,2, Melissa A Penny1,2**
+**Josephine Malinga<sup>1,2</sup>, Lydia Braunack-Mayer<sup>1,2</sup>, Thiery Masserey<sup>1,2</sup>, Matthew Cairns<sup>3</sup> , Sherrie L Kelly<sup>1,2</sup>, Narimane Nekkab<sup>1,2</sup>, Melissa A Penny<sup>1,2</sup>**
 
-_1 Swiss Tropical and Public Health Institute, Allschwil, Switzerland 2 University of Basel, Basel, Switzerland 3 London School of Hygiene and Tropical Medicine, London, United Kingdom_ 
+_<sup>1</sup>Swiss Tropical and Public Health Institute, Allschwil, Switzerland; <sup>2</sup>University of Basel, Basel, Switzerland; <sup>3</sup>London School of Hygiene and Tropical Medicine, London, United Kingdom_ 
 
 *Correspondence to: melissa.penny@unibas.ch
 
