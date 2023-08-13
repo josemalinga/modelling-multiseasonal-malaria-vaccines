@@ -58,7 +58,8 @@ The Rscript used to generate the figure, and
 A pdf version of the figure.
 To reproduce a given figure, download the corresponding folder and update the file paths referenced in the corresponding Rscript.
 
-# Booster validation
+# In-silico modelling for booster efficacy
+## booster_validation
 Contains a simplefied workflow(see below), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
 
 *  ### 0_scenarios (see below)
