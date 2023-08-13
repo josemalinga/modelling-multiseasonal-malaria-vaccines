@@ -16,11 +16,11 @@ This workflow builds on the workflow presented in Golumbeanu (2021) and Burgert 
 Contributors (in chronological order): Melissa Penny, Guojing Yang, Monica Golumbeanu, Lydia Burgert, Mirjam Laager, Narimane Nekkab, Josephine Malinga, Lydia Braunack-Mayer
 
 * ### booster_validation
-Contains a simplefied workflow(see below), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
+* Contains a simplefied workflow(see below), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
 
-** #### 0_scenarios (see below)
-** #### 1_OM_basic_workflow (see below)
-** #### 2_postprocessing_validation
+*  #### 0_scenarios (see below)
+*  #### 1_OM_basic_workflow (see below)
+*  #### 2_postprocessing_validation
 
 ### 0_scenarios
 Contains XML files and associated parameter ranges used to simulate data with OpenMalaria (https://github.com/SwissTPH/openmalaria/wiki).
