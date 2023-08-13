@@ -9,11 +9,18 @@ _<sup>1</sup>Swiss Tropical and Public Health Institute, Allschwil, Switzerland;
 
 Using an individual-based malaria transmission model (https://github.com/SwissTPH/openmalaria/wiki) we evaluate the population level impact of deploying a long duration pre-erythrocytic vaccine, linking vaccine performance properties, health system and programmatic factors and understanding their trad-offs and relationships.
 
-# Workflow Steps/Folders
+# Workflow Steps
 ## analysisworkflow
 This workflow builds on the workflow presented in Golumbeanu (2021) and Burgert (2021) to specify Target Product Profiles for new interventions against malaria. First, a set of simulated scenarios is defined. These are characterized by the delivery modality, tool specifications, and settings in which a concrete health target is analysed. Second, a set of disease scenarios are simulated randomly over the entire parameter space to evaluate the health outcomes. The resulting database of simulations is used to train a Gaussian process emulator (GP), that predicts the health outcome given a set of input parameters. Third, the emulator is employed to perform sensitivity analysis and optimisation of tool properties with respect to health outcomes. This analysis allows to define the optimal product characteristics of new interventions that maximises the chance of achieving a desired health goal.
 
 Contributors (in chronological order): Melissa Penny, Guojing Yang, Monica Golumbeanu, Lydia Burgert, Mirjam Laager, Narimane Nekkab, Josephine Malinga, Lydia Braunack-Mayer
+
+### booster_validation
+Contains a simplefied workflow(see below), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
+
+#### 0_scenarios (see below)
+#### 1_OM_basic_workflow (see below)
+#### 2_postprocessing_validation
 
 ### 0_scenarios
 Contains XML files and associated parameter ranges used to simulate data with OpenMalaria (https://github.com/SwissTPH/openmalaria/wiki).
@@ -52,6 +59,7 @@ The grid search method uses a pre-trained emulator in “3_GP_train” for optim
 data_and_visualisation
 This folder contains the data generated during this study, along with the R scripts used to visualise data. There is a folder for each figure in the manuscript and supplement, containing:
 
+### data_and_figures
 The .rds data file corresponding to the figure,
 The Rscript used to generate the figure, and
 A pdf version of the figure.
