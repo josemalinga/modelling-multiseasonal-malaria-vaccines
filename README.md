@@ -61,8 +61,8 @@ To reproduce a given figure, download the corresponding folder and update the fi
 # Booster validation
 Contains a simplefied workflow(see below), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
 
-*  ## 0_scenarios (see below)
-*  ## 1_OM_basic_workflow (see below)
-*  ## 2_postprocessing_validation
+*  ### 0_scenarios (see below)
+*  ### 1_OM_basic_workflow (see below)
+*  ### 2_postprocessing_validation
 
 
