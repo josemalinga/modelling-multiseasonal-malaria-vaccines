@@ -21,8 +21,8 @@ Contains XML files and associated parameter ranges used to simulate data with Op
 ### 1_OM_basic_workflow
 Generates paramater table and XML scenarios from base scaffold.xml
 Launches OM simulations with 2 outputs
-The ctsout.txt contains a table with outputs for "continuous time" the measures specified in the the scenario test.xml. There is one line for each (5-day) time step.
-The output.txt contains a table with four columns and no headers for survey measures.
+* The ctsout.txt contains a table with outputs for "continuous time" the measures specified in the the scenario test.xml. There is one line for each (5-day) time step.
+* The output.txt contains a table with four columns and no headers for survey measures.
 
 ### 2_postprocessing
 Performs generalized post-processing of OM simulations by the settings specified in previous sets
@@ -49,18 +49,17 @@ The non-linear search method performs optimisation by using the Augmented Lagran
 ### 6_grid_optimization
 Alterative to step 5, performs a grid search optimisation of chosen continuous input variables to reach a certain health goal while keeping other continuous variables constant
 The grid search method uses a pre-trained emulator in “3_GP_train” for optimisation.
-data_and_visualisation
-This folder contains the data generated during this study, along with the R scripts used to visualise data. There is a folder for each figure in the manuscript and supplement, containing:
 
-### data_and_figures
-The .rds data file corresponding to the figure,
-The Rscript used to generate the figure, and
-A pdf version of the figure.
+## data_and_figures
+This folder contains the data generated during this study, along with the R scripts used to visualise data. There is a folder for each figure in the manuscript and supplement, containing: 
+* The .rds data file corresponding to the figure,
+* The Rscript used to generate the figure, and
+* A pdf version of the figure.
 To reproduce a given figure, download the corresponding folder and update the file paths referenced in the corresponding Rscript.
 
-# In-silico modelling for booster efficacy
+# In-silico modelling to validate booster efficacy
 ## booster_validation
-Contains a simplefied workflow(see below), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
+Contains a simplefied workflow(as shown above), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
 
 *  ### 0_scenarios (see below)
 *  ### 1_OM_basic_workflow (see below)
