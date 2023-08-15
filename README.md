@@ -59,11 +59,11 @@ To reproduce a given figure, download the corresponding folder and update the fi
 
 # In-silico modelling to validate booster efficacy
 ## booster_validation
-Contains a simplefied workflow(as shown above), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
+Contains a simplified workflow(as shown above), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
 
 *  ### 0_scenarios (see above)
 *  ### 1_OM_basic_workflow (see above)
 *  ### 2_postprocessing_validation
-*  ### 2_results_and_figures
+*  ### 3_results_and_figures
 
 
