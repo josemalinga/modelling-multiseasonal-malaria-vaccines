@@ -54,7 +54,7 @@ The grid search method uses a pre-trained emulator in “3_GP_train” for optim
 This folder contains the data generated during this study, along with the R scripts used to visualise data. There is a folder for each figure in the manuscript and supplement, containing: 
 * The .rds data file corresponding to the figure,
 * The Rscript used to generate the figure, and
-* A pdf version of the figure.
+* A pdf version of the figure. \n
 To reproduce a given figure, download the corresponding folder and update the file paths referenced in the corresponding Rscript.
 
 # In-silico modelling to validate booster efficacy
