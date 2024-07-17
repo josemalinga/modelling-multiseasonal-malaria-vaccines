@@ -1,93 +1,70 @@
 # seasonal_vaccines
 
+# UPDATE IN PROGRESS
+# Performance characteristics and potential public health impact of improved malaria vaccines targeting childhood burden
 
+**Josephine Malinga<sup>1,2</sup>, Lydia Braunack-Mayer<sup>1,2</sup>, Thiery Masserey<sup>1,2</sup>, Matthew Cairns<sup>3</sup> , Sherrie L Kelly<sup>1,2</sup>, Narimane Nekkab<sup>1,2</sup>, Melissa A Penny<sup>1,2</sup>**
 
-## Getting started
+_<sup>1</sup>Swiss Tropical and Public Health Institute, Allschwil, Switzerland; <sup>2</sup>University of Basel, Basel, Switzerland; <sup>3</sup>London School of Hygiene and Tropical Medicine, London, United Kingdom_ 
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+*Correspondence to: melissa.penny@unibas.ch
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Using an individual-based malaria transmission model (https://github.com/SwissTPH/openmalaria/wiki) we evaluate the population level impact of deploying a long duration pre-erythrocytic vaccine, linking vaccine performance properties, health system and programmatic factors and understanding their trad-offs and relationships.
 
-## Add your files
+# Workflow Steps
+## analysisworkflow
+This workflow builds on the workflow presented in Golumbeanu (2021) and Burgert (2021) to specify Target Product Profiles for new interventions against malaria. First, a set of simulated scenarios is defined. These are characterized by the delivery modality, tool specifications, and settings in which a concrete health target is analysed. Second, a set of disease scenarios are simulated randomly over the entire parameter space to evaluate the health outcomes. The resulting database of simulations is used to train a Gaussian process emulator (GP), that predicts the health outcome given a set of input parameters. Third, the emulator is employed to perform sensitivity analysis and optimisation of tool properties with respect to health outcomes. This analysis allows to define the optimal product characteristics of new interventions that maximises the chance of achieving a desired health goal.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Contributors (in chronological order): Melissa Penny, Guojing Yang, Monica Golumbeanu, Lydia Burgert, Mirjam Laager, Narimane Nekkab, Josephine Malinga, Lydia Braunack-Mayer
 
-```
-cd existing_repo
-git remote add origin https://git.scicore.unibas.ch/idm/did/m3tpp/seasonal_vaccines.git
-git branch -M main
-git push -uf origin main
-```
+### 0_scenarios
+Contains XML files and associated parameter ranges used to simulate data with OpenMalaria (https://github.com/SwissTPH/openmalaria/wiki).
 
-## Integrate with your tools
+### 1_OM_basic_workflow
+Generates paramater table and XML scenarios from base scaffold.xml
+Launches OM simulations with 2 outputs
+* The ctsout.txt contains a table with outputs for "continuous time" the measures specified in the the scenario test.xml. There is one line for each (5-day) time step.
+* The output.txt contains a table with four columns and no headers for survey measures.
 
-- [ ] [Set up project integrations](https://git.scicore.unibas.ch/idm/did/m3tpp/seasonal_vaccines/-/settings/integrations)
+### 2_postprocessing
+Performs generalized post-processing of OM simulations by the settings specified in previous sets
+For each setting, a split file is generated in “postprocessing/split” that specifies the parameters for this setting and based on that, a seeds file (for every simulation) and an agg file (aggregated over all seeds for one parameter set) is generated
+For each iTPP, postprocessing functions have been further developed and saved in 0_scenarios
 
-## Collaborate with your team
+### 3_GP_train
+Trains GPs using for a specified outcome calculated in 2_postprocessing for each of the seeds files.
+predictors: continuous variables
+predicted: health outcome
+To change GP plotting and outputs modify script analysisworkflow/3_GP_train/train_GP.R. Adaptive sampling can be added in this step depending on GP performance.
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+### 4_sensitivity_analysis
+Performs sensitivity analysis of health outcome using analysis of variance (sobol) for GPs trained in step 3 within the parameter bounds used for simulation (default)
+predictors: continuous variables
+predicted: health outcome
 
-## Test and Deploy
+To chance number of bootstrap samples, change function calc_sobol_idx in analysisworkflow/3_GP_train/GPtoolbox.R
 
-Use the built-in continuous integration in GitLab.
+### 5_optimization
+Performs non-linear optimisation of chosen continuous input variables to reach a certain health goal while keeping other continuous variables constant
+If the grid size is to wide, change number of grid points within 5_optimization/optimize_parameter.R
+The non-linear search method performs optimisation by using the Augmented Lagrange Multiplier Method with a pre-trained emulator in “3_GP_train”.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+### 6_grid_optimization
+Alterative to step 5, performs a grid search optimisation of chosen continuous input variables to reach a certain health goal while keeping other continuous variables constant
+The grid search method uses a pre-trained emulator in “3_GP_train” for optimisation.
 
-***
+## data_and_figures
+This folder contains the data generated during this study, along with the R scripts used to visualise data. There is a folder for each figure in the manuscript and supplement, containing: 
+* The .rds data file corresponding to the figure,
+* The Rscript used to generate the figure, and
+* A pdf version of the figure. \n
+To reproduce a given figure, download the corresponding folder and update the file paths referenced in the corresponding Rscript.
 
-# Editing this README
+# In-silico modelling to validate booster efficacy
+## booster_validation
+Contains a simplified workflow(as shown above), datasets and associated results files used in the in-silico modelling exercise to validate RTS,S parameters in a seasonal use case
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+*  ### 0_scenarios (see above)
+*  ### 1_OM_basic_workflow (see above)
+*  ### 2_postprocessing_validation
+*  ### 3_results_and_figures
