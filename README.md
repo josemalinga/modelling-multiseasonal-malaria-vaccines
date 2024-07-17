@@ -1,7 +1,7 @@
 # seasonal_vaccines
 
 # UPDATE IN PROGRESS
-# Performance characteristics and potential public health impact of improved malaria vaccines targeting childhood burden
+# Performance characteristics and potential public health impact of improved pre-erythrocytic malaria vaccines targeting childhood burden
 
 **Josephine Malinga<sup>1,2</sup>, Lydia Braunack-Mayer<sup>1,2</sup>, Thiery Masserey<sup>1,2</sup>, Matthew Cairns<sup>3</sup> , Sherrie L Kelly<sup>1,2</sup>, Narimane Nekkab<sup>1,2</sup>, Melissa A Penny<sup>1,2</sup>**
 
