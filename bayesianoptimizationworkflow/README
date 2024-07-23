@@ -1,0 +1,86 @@
+# Install Conda (skippable)
+
+See website: https://docs.conda.io/projects/miniconda/en/latest/
+Run the following commands to download, make executable and install the latest version of miniconda. These commands need to be pasted in a terminal.
+
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+
+# update April 13 2024
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+
+# initialize
+~/miniconda3/bin/conda init bash
+~/miniconda3/bin/conda init zsh
+
+# Check installation (skippable)
+
+Conda needs to be loaded into the environment variables.
+CHANGE THE PATH according to your installation and run the following commands in a terminal.
+
+eval "$(/scicore/home/scicore/malinga/miniconda3/bin/conda shell.bash hook 2> /dev/null)"
+
+You may want to add these two lines in your .bashrc file (in your home folder), or otherwise you will need to do this everytime you open a new terminal.
+
+Now run:
+which conda
+~/miniconda3/bin/conda
+
+conda --version
+> conda 23.5.2
+
+If the path does not match your installation and you have an older version, check the steps above.
+
+Note: you can delete an installation by just removing the miniconda3 folder in your home.
+
+# Create new conda environment
+
+Conda comes with a `base` environment which you can use by just typing `conda activate` without speciying an environment.
+However it is a bad idea to use the base environment. The goal is to create a new fresh and empty environment and install the latest version of the packages that we need. If you already have packages installed in `base`, they will be used instead and this can cause problems later.
+
+We create a new `rbo` environment. This can take a few minutes. You need interenet access so it's better to do this on the login node. Remember to activate conda (eval + export) if this is not in your .bashrc file.
+
+conda create -n rbo
+
+Then we can activate our new environment:
+conda activate rbo
+
+Your shell should be prefixed with (rbo) to indicate that you are now working in the `rbo` environment. Any package installed from now on will be installed in this environment.
+
+# remove environement
+conda remove --name bayesoptim --all
+
+# create python within conda environment
+
+
+One more check, we can run:
+which python
+~/miniconda3/bin/python
+
+If the path is not your conda installation, then check the steps above. Make sure you did not do a `module load ...` that somehow loads another version of Python, even indirectly.
+
+# Install packages
+
+To deal with packages, we can use mamba instead of conda. conda can be notoriously slow when dealing with many packages. mamba is a MUCH BETTER package manager and can replace conda for everything once the environment is loaded. When installing packages, it is good practice to use conda-forge instead of the default channel. This will avoid many conflicts.
+
+conda install mamba -c conda-forge
+
+Right, lets install all the packages that we need:
+
+mamba install botorch -c pytorch c gpytorch -c conda-forge
+mamba install pytorch pytorch-cuda -c pytorch c gpytorch -c nvidia -c conda-forge
+mamba install numpy -c conda-forge
+
+# update
+mamba install botorch -c pytorch -c gpytorch -c conda-forge
+mamba install pytorch pytorch-cuda -c pytorch -c gpytorch -c nvidia -c conda-forge
+mamba install numpy -c conda-forge
+
+Botorch is the bayesian optimization library that we use. It is written on top of pytorch (a generic math and machine learning framework with performance in mind). This comes with many other packages as dependencies so installation can take a while.
+
+
+
